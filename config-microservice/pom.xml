@@ -17,7 +17,7 @@
     </parent>
 
     <properties>
-        <docker.image.prefix>kbastani</docker.image.prefix>
+        <docker.image.prefix>dockerniu</docker.image.prefix>
     </properties>
 
     <dependencies>

@@ -47,12 +47,12 @@ eureka:
     healthCheckUrlPath: ${management.context-path}/health
     hostname: configServer
     preferIpAddress: true
-    defaultZone: http://discovery:8761/eureka/
+    defaultZone: http://10.32.0.4:8761/eureka/
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://10.32.0.4:8761/eureka/
 info:
   description: Config Server
   url: https://github.com/kbastani/spring-cloud-microservice-example

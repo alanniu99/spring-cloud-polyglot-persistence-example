@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: cloud
+    active: docker
 ---
 spring:
   profiles: cloud
@@ -47,12 +47,12 @@ eureka:
     healthCheckUrlPath: ${management.context-path}/health
     hostname: configServer
     preferIpAddress: true
-    defaultZone: http://192.168.59.103:8761/eureka/
+    defaultZone: http://discovery:8761/eureka/
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://192.168.59.103:8761/eureka/
+      defaultZone: http://discovery:8761/eureka/
 info:
   description: Config Server
   url: https://github.com/kbastani/spring-cloud-microservice-example

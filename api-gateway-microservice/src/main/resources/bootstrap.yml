@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: cloud
+    active: docker
 ---
 
 spring:
@@ -21,6 +21,6 @@ spring:
     name: gateway
   cloud:
     config:
-      uri: http://configserver:8888
+      uri: http://configServer:8888
 encrypt:
   failOnError: false

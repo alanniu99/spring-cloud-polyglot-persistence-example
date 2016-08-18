@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: cloud
+    active: docker
 ---
 spring:
   profiles:
@@ -19,7 +19,7 @@ spring:
     name: moviesui
   cloud:
     config:
-      uri: http://configserver:8888
+      uri: http://configServer:8888
       enabled: false
 encrypt:
   failOnError: false

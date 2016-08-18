@@ -1,6 +1,6 @@
 --- 
 config:
-  image: kbastani/config-microservice
+  image: dockerniu/config-microservice
   hostname: configServer
   links:
     - discovery
@@ -9,14 +9,14 @@ config:
   environment:
     - SPRING_PROFILES_ACTIVE=docker
 discovery:
-  image: kbastani/discovery-microservice
+  image: dockerniu/discovery-microservice
   hostname: discovery
   ports:
     - "8761:8761"
   environment:
     - SPRING_PROFILES_ACTIVE=docker
 gateway:
-  image: kbastani/api-gateway-microservice
+  image: dockerniu/api-gateway-microservice
   hostname: gateway
   links:
     - discovery
@@ -30,7 +30,7 @@ gateway:
     - SPRING_PROFILES_ACTIVE=docker
 movie:
   hostname: movie
-  image: kbastani/movie-microservice
+  image: dockerniu/movie-microservice
   links:
     - discovery
     - config
@@ -39,7 +39,7 @@ movie:
   environment:
     - SPRING_PROFILES_ACTIVE=docker
 moviesui:
-  image: kbastani/ui-search
+  image: dockerniu/ui-search
   links:
     - discovery
     - config
@@ -49,7 +49,7 @@ moviesui:
     - SPRING_PROFILES_ACTIVE=docker
 rating:
   hostname: rating
-  image: kbastani/rating-microservice
+  image: dockerniu/rating-microservice
   links:
     - discovery
     - config
@@ -59,7 +59,7 @@ rating:
     - SPRING_PROFILES_ACTIVE=docker
 user:
   hostname: user
-  image: kbastani/user-microservice
+  image: dockerniu/user-microservice
   links:
     - discovery
     - config

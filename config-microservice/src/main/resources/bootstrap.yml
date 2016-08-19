@@ -28,7 +28,7 @@ eureka:
       defaultZone: http://discovery-77.cfapps.io/eureka/
 info:
   description: Config Server
-  url: https://github.com/kbastani/spring-cloud-microservice-example
+  url: https://github.com/alanniu99/spring-boot-microservice-config
 ---
 spring:
   profiles: docker
@@ -38,7 +38,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/kbastani/spring-boot-microservice-config
+          uri: https://github.com/alanniu99/spring-boot-microservice-config
 encrypt:
   failOnError: false
 eureka:
@@ -47,12 +47,12 @@ eureka:
     healthCheckUrlPath: ${management.context-path}/health
     hostname: configServer
     preferIpAddress: true
-    defaultZone: http://10.32.0.4:8761/eureka/
+    defaultZone: http://discovery:8761/eureka/
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://10.32.0.4:8761/eureka/
+      defaultZone: http://discovery:8761/eureka/
 info:
   description: Config Server
-  url: https://github.com/kbastani/spring-cloud-microservice-example
+  url: https://github.com/alanniu99/spring-cloud-polyglot-persistence-example

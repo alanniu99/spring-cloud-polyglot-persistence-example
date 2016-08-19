@@ -1,0 +1,333 @@
+{
+	"id": "/movieapps",
+	"groups": [
+		{
+			"id": "discover-service",
+			"apps": [
+				{
+					"id": "discovery",
+					"cmd": null,
+					"cpus": 0.5,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/discovery-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "discovery"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "discovery"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 8761,
+									"hostPort": 8761,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER",
+						"env": {
+							"SPRING_PROFILES_ACTIVE": "docker"
+						}
+					}
+				}
+			]
+		},
+		{
+			"id": "config-service",
+			"dependencies": [
+				"discover-service"
+			],
+			"apps": [
+				{
+					"id": "config",
+					"cmd": null,
+					"cpus": 0.5,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/config-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "configServer"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "discovery"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 8888,
+									"hostPort": 8888,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER",
+						"env": {
+							"SPRING_PROFILES_ACTIVE": "docker"
+						}
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					}
+				}
+			]
+		},
+		{
+			"id": "movie-services",
+			"dependencies": [
+				"discover-service",
+				"config-service"
+			],
+			"apps": [
+				{
+					"id": "movie",
+					"cmd": null,
+					"cpus": 0.5,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/movie-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "movie"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "movie"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 9000,
+									"hostPort": 9000,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"acceptedResourceRoles": [
+						"slave_public"
+					]
+				},
+				{
+					"id": "moviesui",
+					"cmd": null,
+					"cpus": 0.5,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/ui-search",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "moviesui"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "moviesui"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 1111,
+									"hostPort": 1111,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER",
+						"env": {
+							"SPRING_PROFILES_ACTIVE": "docker"
+						}
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"acceptedResourceRoles": [
+						"slave_public"
+					]
+				},
+				{
+					"id": "rating",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/rating-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "rating"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "rating"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 9004,
+									"hostPort": 9004,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					}
+				},
+				{
+					"id": "user",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/user-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "user"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "user"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 9000,
+									"hostPort": 9000,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"acceptedResourceRoles": [
+						"slave_public"
+					]
+				}
+			]
+		},
+		{
+			"id": "api-getway",
+			"dependencies": [
+				"discover-service",
+				"config-service",
+				"user",
+				"rating",
+				"movie"
+			],
+			"apps": [
+				{
+					"id": "gateway",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 1000,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/api-gateway-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "gateway"
+								},
+								{
+									"key": "network",
+									"value": "multi-host-network"
+								},{
+									"key": "network-alias",
+									"value": "gateway"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 10000,
+									"hostPort": 10000,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					}
+				}
+			]
+		}
+	]
+}

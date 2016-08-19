@@ -19,7 +19,7 @@ spring:
     name: moviesui
   cloud:
     config:
-      uri: http://10.32.0.4:8888
+      uri: http://discovery:8888
       enabled: false
 encrypt:
   failOnError: false

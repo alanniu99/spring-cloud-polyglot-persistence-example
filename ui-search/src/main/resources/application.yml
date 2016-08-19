@@ -24,7 +24,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://10.32.0.4:8761/eureka/
+      defaultZone: http://discovery:8761/eureka/
   instance:
     preferIpAddress: true
 ribbon:

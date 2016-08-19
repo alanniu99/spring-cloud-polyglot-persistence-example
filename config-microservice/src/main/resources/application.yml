@@ -11,7 +11,7 @@ spring:
         enabled: true
       server:
         git:
-          uri: https://github.com/kbastani/spring-boot-microservice-config
+          uri: https://github.com/alanniu99/spring-boot-microservice-config
         health:
           repositories:
             movie:
@@ -24,7 +24,7 @@ server:
   port: 8888
 info:
   description: Config Server
-  url: https://github.com/kbastani/spring-cloud-microservice-example
+  url: https://github.com/alanniu99/spring-cloud-polyglot-persistence-example
 ---
 spring:
   profiles:
@@ -35,7 +35,7 @@ spring:
         enabled: true
       server:
         git:
-          uri: https://github.com/kbastani/spring-boot-microservice-config
+          uri: https://github.com/alanniu99/spring-boot-microservice-config
         health:
           repositories:
             movie:
@@ -48,4 +48,4 @@ server:
   port: 8888
 info:
   description: Config Server
-  url: https://github.com/kbastani/spring-cloud-microservice-example
+  url: https://github.com/alanniu99/spring-cloud-polyglot-persistence-example

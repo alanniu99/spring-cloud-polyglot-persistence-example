@@ -1,0 +1,274 @@
+{
+	"id": "/movieapps",
+	"groups": [
+		{
+			"id": "/movieapps/springcloud-services",
+			"apps": [
+				{
+					"id": "/movieapps/springcloud-services/discovery",
+					"cmd": null,
+					"cpus": 0.2,
+					"mem": 300,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/discovery-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "discovery"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 8761,
+									"hostPort": 8761,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				},
+				{
+					"id": "/movieapps/springcloud-services/config",
+					"dependencies": [
+						"/movieapps/springcloud-services/discovery"
+					],
+					"cmd": null,
+					"cpus": 0.2,
+					"mem": 300,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/config-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "configServer"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 8888,
+									"hostPort": 8888,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				}
+			]
+		},
+		{
+			"id": "/movieapps/movie-services",
+			"dependencies": [
+				"/movieapps/springcloud-services"
+			],
+			"apps": [
+				{
+					"id": "/movieapps/movie-services/movie",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 512,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/movie-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "movie"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 9006,
+									"hostPort": 9006,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				},
+				{
+					"id": "/movieapps/movie-services/moviesui",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 512,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/ui-search",
+							"network": "BRIDGE",
+							"portMappings": [
+								{
+									"containerPort": 1111,
+									"hostPort": 1111,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				},
+				{
+					"id": "/movieapps/movie-services/rating",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 512,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/rating-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "rating"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 9004,
+									"hostPort": 9004,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				},
+				{
+					"id": "/movieapps/movie-services/user",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 512,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/user-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "user"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 9000,
+									"hostPort": 9000,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				}
+			]
+		},
+		{
+			"id": "/movieapps/api-getway",
+			"dependencies": [
+				"/movieapps/springcloud-services",
+				"/movieapps/movie-services/user",
+				"/movieapps/movie-services/rating",
+				"/movieapps/movie-services/movie"
+			],
+			"apps": [
+				{
+					"id": "/movieapps/api-getway/gateway",
+					"cmd": null,
+					"cpus": 0.3,
+					"mem": 512,
+					"disk": 0,
+					"instances": 1,
+					"container": {
+						"docker": {
+							"image": "dockerniu/api-gateway-microservice",
+							"network": "BRIDGE",
+							"parameters": [
+								{
+									"key": "hostname",
+									"value": "gateway"
+								}
+							],
+							"portMappings": [
+								{
+									"containerPort": 10000,
+									"hostPort": 10000,
+									"protocol": "tcp",
+									"name": null
+								}
+							]
+						},
+						"type": "DOCKER"
+					},
+					"healthChecks": [
+					],
+					"labels": {
+					},
+					"env": {
+						"SPRING_PROFILES_ACTIVE": "docker"
+					}
+				}
+			]
+		}
+	]
+}

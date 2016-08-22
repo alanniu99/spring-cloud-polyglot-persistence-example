@@ -34,9 +34,9 @@ server:
   port: 9004
 neo4j:
   uri: http://neo4jdb:7474/db/data/
-  username: ""
-  password: ""
-  bootstrap: true
+  username: neo4j
+  password: graphdb
+  bootstrap: false
 aws:
   s3:
     url: https://s3.amazonaws.com/dataset-demos

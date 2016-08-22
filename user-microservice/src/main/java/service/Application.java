@@ -2,6 +2,7 @@ package service;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,8 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.data.neo4j.rest.SpringCypherRestGraphDatabase;
+
 import service.data.domain.entity.User;
 
 @SpringBootApplication
@@ -28,13 +31,56 @@ public class Application extends Neo4jConfiguration {
     @Value("${aws.s3.url}")
     String datasetUrl;
 
+    @Value("${neo4j.uri}")
+    private String url;
+
+    @Value("${neo4j.username}")
+    private String username;
+
+    @Value("${neo4j.password}")
+    private String password;
+    
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
     public Application() {
         setBasePackage("service");
     }
 
+    @Autowired(required = true)
+    @Override
+    public void setGraphDatabaseService(GraphDatabaseService graphDatabaseService) {
+        super.setGraphDatabaseService(graphDatabaseService);
+        
+    }
+    
     @Bean(destroyMethod = "shutdown")
     public GraphDatabaseService graphDatabaseService() {
-        return new GraphDatabaseFactory().newEmbeddedDatabase("user.db");
+       // return new GraphDatabaseFactory().newEmbeddedDatabase("user.db");
+    	setGraphDatabaseService(new SpringCypherRestGraphDatabase(url, username, password));
+    	return getGraphDatabaseService();
     }
 
     public static void main(String[] args) {

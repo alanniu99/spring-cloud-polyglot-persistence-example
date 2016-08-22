@@ -33,9 +33,9 @@ spring:
 server:
   port: 9004
 neo4j:
-  uri: http://localhost:7474/db/data/
-  username: neo4j
-  password: graphdb
+  uri: http://neo4jdb:7474/db/data/
+  username: 
+  password: 
   bootstrap: true
 aws:
   s3:

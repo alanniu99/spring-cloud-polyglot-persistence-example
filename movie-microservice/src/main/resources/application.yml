@@ -31,7 +31,7 @@ spring:
   datasource:
     platform: hsqldb
 server:
-  port: 1111
+  port: 9006
 eureka:
   client:
     serviceUrl:

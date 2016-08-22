@@ -32,8 +32,7 @@ public class Application {
 	RepositoryRestMvcConfiguration restConfiguration;
 
 	// Used to bootstrap the Neo4j database with demo data
-	// @Value("${aws.s3.url}")
-	@Value("${neo4j.uri}")
+	@Value("${aws.s3.url}")
 	String datasetUrl;
 
 	@Value("${neo4j.bootstrap}")

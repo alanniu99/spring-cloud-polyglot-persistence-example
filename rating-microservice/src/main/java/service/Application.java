@@ -86,6 +86,7 @@ public class Application {
 								+ "MERGE (user)-[r:Rating]->(product)\n"
 								+ "ON CREATE SET r.timestamp = toInt(csvLine.timestamp), r.rating = toInt(csvLine.rating), r.knownId = csvLine.userId + \"_\" + csvLine.movieId, r.__type__ = \"Rating\", r.className = \"data.domain.rels.Rating\"",
 						datasetUrl);
+				logger.info("userImport" + userImport);
 				try {
 					graphDatabaseConfiguration.neo4jTemplate().query(userImport, null).finish();
 				} catch (Exception e) {

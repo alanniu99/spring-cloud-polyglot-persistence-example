@@ -89,7 +89,8 @@ public class GraphDatabaseConfiguration extends Neo4jConfiguration {
             setGraphDatabaseService(new SpringCypherRestGraphDatabase(url, username, password));
         } else {
             // Connect to local ephemeral database
-            return new GraphDatabaseFactory().newEmbeddedDatabase("user.db");
+            //return new GraphDatabaseFactory().newEmbeddedDatabase("user.db");
+        	setGraphDatabaseService(new SpringCypherRestGraphDatabase(url, username, password));
         }
 
         return getGraphDatabaseService();

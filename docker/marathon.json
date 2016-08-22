@@ -65,7 +65,7 @@
 							"parameters": [
 								{
 									"key": "hostname",
-									"value": "configServer"
+									"value": "configserver"
 								},
 								{
 									"key": "net",

@@ -24,6 +24,11 @@ spring:
   profiles: docker
 server:
   port: 9000
+neo4j:
+  uri: http://localhost:7474
+  username: neo4j
+  password: graphdb
+  bootstrap: true
 eureka:
   client:
     serviceUrl:

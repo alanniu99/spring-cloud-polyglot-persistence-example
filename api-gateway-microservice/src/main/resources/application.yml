@@ -30,6 +30,9 @@ spring:
   profiles: docker
 server:
   port: 10000
+sidecar:
+  port: 8000
+ 
 endpoints:
   restart:
     enabled: true
